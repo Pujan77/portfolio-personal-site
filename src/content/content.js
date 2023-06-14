@@ -1,11 +1,5 @@
-import { About, Contact, Homepage } from '../pages';
-import {
-  FaGithub,
-  FaDev,
-  FaLinkedin,
-  FaQuora,
-  FaTwitter,
-} from 'react-icons/fa';
+import { About, Contact, Homepage, PortFolio } from '../pages';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 export const routingItems = [
   {
     to: '/',
@@ -25,6 +19,12 @@ export const routingItems = [
     component: <Contact />,
     exact: false,
   },
+  {
+    to: '/display',
+    title: 'Portfolio',
+    component: <PortFolio />,
+    exact: false,
+  },
 ];
 
 export const Links = [
@@ -35,6 +35,10 @@ export const Links = [
   {
     name: 'About',
     to: '/about',
+  },
+  {
+    name: 'Portfolio',
+    to: '/display',
   },
   {
     name: 'Contact',
@@ -50,24 +54,12 @@ export const SocialAccounts = [
     icon: <FaGithub />,
   },
 
-  // {
-  //   url: 'https://dev.to/m_ahmad',
-  //   label: 'Dev Account',
-  //   type: 'gray',
-  //   icon: <FaDev />,
-  // },
   {
     url: 'https://linkedin.com/in/pujansapkota7',
     label: 'LinkedIn Account',
     type: 'linkedin',
     icon: <FaLinkedin />,
   },
-  // {
-  //   url: 'https://www.quora.com/profile/Muhammad-Ahmad-66',
-  //   label: 'Quora Account',
-  //   type: 'red',
-  //   icon: <FaQuora />,
-  // },
 ];
 
 export const milestones = [
