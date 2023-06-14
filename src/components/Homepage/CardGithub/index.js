@@ -16,6 +16,7 @@ const OfflineData = () => {
             techStack={repo.techStack}
             url={repo.url}
             stargazers_count={repo.stargazers_count}
+            live={repo.live}
           />
         ))}
       </SimpleGrid>

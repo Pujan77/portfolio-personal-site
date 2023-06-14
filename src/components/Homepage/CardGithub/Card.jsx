@@ -21,10 +21,11 @@ import {
 import LazyImage from './lazy-image';
 // Here we have used react-icons package for the icons
 import { AiOutlineStar } from 'react-icons/ai';
-import { FiGithub } from 'react-icons/fi';
+import { FiGithub, FiEye } from 'react-icons/fi';
 
 const RepositoryCard = props => {
-  const { title, cover, techStack, url, stargazers_count } = props;
+  const { title, cover, techStack, url, stargazers_count, live, description } =
+    props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = () => {
@@ -58,7 +59,11 @@ const RepositoryCard = props => {
             borderBottomWidth="1px"
             borderColor={useColorModeValue('gray.100', 'gray.700')}
           >
-            <LazyImage src={cover} />
+            <Tooltip hasArrow label={description} placement="top">
+              <HStack>
+                <LazyImage src={cover} />
+              </HStack>
+            </Tooltip>
           </AspectRatio>
         </Box>
 
@@ -78,12 +83,29 @@ const RepositoryCard = props => {
                 </Text>
               </HStack>
             </Tooltip>
+
             <Flex alignItems="center">
               <Icon as={AiOutlineStar} boxSize="0.9em" mt="1px" />
               <Box as="span" ml="1" fontSize="sm">
                 {stargazers_count}
               </Box>
             </Flex>
+          </Flex>
+          <Flex>
+            <Tooltip hasArrow label="Live" placement="top">
+              <HStack>
+                <Icon as={FiEye} boxSize="0.9em" mt="1px" />
+                <Text
+                  fontSize="sm"
+                  noOfLines={1}
+                  fontWeight="600"
+                  align="left"
+                  onClick={e => handleLinkClick(e, live)}
+                >
+                  Demo
+                </Text>
+              </HStack>
+            </Tooltip>
           </Flex>
           <Flex justifyContent="space-between" width="100%">
             <Box>

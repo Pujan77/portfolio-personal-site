@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import {
   Container,
   FormControl,
@@ -19,7 +19,9 @@ import {
 import { GoLocation } from 'react-icons/go';
 import { BsPhone } from 'react-icons/bs';
 import { HiOutlineMail } from 'react-icons/hi';
-
+import { Field, Form, Formik } from 'formik';
+import emailjs from '@emailjs/browser';
+import { useError, useResponse } from '../../ErrorWrapper';
 const contactOptions = [
   {
     label: 'Address',
@@ -39,6 +41,36 @@ const contactOptions = [
 ];
 
 const ContactForm = () => {
+  const form = useRef();
+  const { showError } = useError();
+  const { showSuccess } = useResponse();
+  const initialValues = {
+    fullName: '',
+    email: '',
+    subject: '',
+    message: '',
+  };
+
+  const handleSubmit = async () => {
+    // Handle form submission here
+    emailjs
+      .sendForm(
+        `${process.env.REACT_APP_SERVICE_ID}`,
+        `${process.env.REACT_APP_TEMPLATE_ID}`,
+        form.current,
+        `${process.env.REACT_APP_PROFILE_ID}`
+      )
+      .then(
+        result => {
+          showSuccess('Your message has been sent. We will get back to you.');
+          form.current.reset();
+        },
+        error => {
+          showError('Some error occured. Try again.');
+        }
+      );
+  };
+
   return (
     <Container maxW="7xl" py={10} px={{ base: 5, md: 8 }}>
       <Stack spacing={10}>
@@ -47,8 +79,8 @@ const ContactForm = () => {
             Contact Me
           </Heading>
           <Text fontSize="md" textAlign="center">
-            If you need any information. Feel free to contact through any means
-            below.
+            If you need any information, feel free to contact me through any
+            means below.
           </Text>
         </Flex>
         <Stack
@@ -81,61 +113,81 @@ const ContactForm = () => {
             </Fragment>
           ))}
         </Stack>
-        <VStack
-          as="form"
-          spacing={8}
-          w="100%"
-          bg={useColorModeValue('white', 'gray.700')}
-          rounded="lg"
-          boxShadow="lg"
-          p={{ base: 5, sm: 10 }}
-        >
-          <VStack spacing={4} w="100%">
-            <Stack
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          <Form ref={form}>
+            <VStack
+              spacing={8}
               w="100%"
-              spacing={3}
-              direction={{ base: 'column', md: 'row' }}
+              bg={useColorModeValue('white', 'gray.700')}
+              rounded="lg"
+              boxShadow="lg"
+              p={{ base: 5, sm: 10 }}
             >
-              <FormControl id="name">
-                <FormLabel>Name</FormLabel>
-                <Input type="text" placeholder="Ahmad" rounded="md" />
-              </FormControl>
-              <FormControl id="email">
-                <FormLabel>Email</FormLabel>
-                <Input type="email" placeholder="test@test.com" rounded="md" />
-              </FormControl>
-            </Stack>
-            <FormControl id="subject">
-              <FormLabel>Subject</FormLabel>
-              <Input
-                type="text"
-                placeholder="Are you available for freelance work?"
-                rounded="md"
-              />
-            </FormControl>
-            <FormControl id="message">
-              <FormLabel>Message</FormLabel>
-              <Textarea
-                size="lg"
-                placeholder="Enter your message"
-                rounded="md"
-              />
-            </FormControl>
-          </VStack>
-          <VStack w="100%">
-            <Button
-              bg="green.300"
-              color="white"
-              _hover={{
-                bg: 'green.500',
-              }}
-              rounded="md"
-              w={{ base: '100%', md: 'max-content' }}
-            >
-              Send Message
-            </Button>
-          </VStack>
-        </VStack>
+              <VStack spacing={4} w="100%">
+                <Stack
+                  w="100%"
+                  spacing={3}
+                  direction={{ base: 'column', md: 'row' }}
+                >
+                  <FormControl id="fullName">
+                    <FormLabel>Name</FormLabel>
+                    <Field
+                      as={Input}
+                      type="text"
+                      name="fullName"
+                      placeholder="John Doe"
+                      rounded="md"
+                    />
+                  </FormControl>
+                  <FormControl id="email">
+                    <FormLabel>Email</FormLabel>
+                    <Field
+                      as={Input}
+                      type="email"
+                      name="email"
+                      placeholder="john_doe@email.com"
+                      rounded="md"
+                    />
+                  </FormControl>
+                </Stack>
+                <FormControl id="subject">
+                  <FormLabel>Subject</FormLabel>
+                  <Field
+                    as={Input}
+                    type="text"
+                    name="subject"
+                    placeholder="Eg. Freelance availability"
+                    rounded="md"
+                  />
+                </FormControl>
+                <FormControl id="message">
+                  <FormLabel>Message</FormLabel>
+                  <Field
+                    as={Textarea}
+                    size="lg"
+                    name="message"
+                    placeholder="Enter your message"
+                    rounded="md"
+                  />
+                </FormControl>
+              </VStack>
+              <VStack w="100%">
+                <Button
+                  type="submit"
+                  bg="green.300"
+                  color="white"
+                  _hover={{
+                    bg: 'green.500',
+                  }}
+                  rounded="md"
+                  w={{ base: '100%', md: 'max-content' }}
+                >
+                  Send Message
+                </Button>
+              </VStack>
+            </VStack>
+          </Form>
+        </Formik>
       </Stack>
     </Container>
   );
