@@ -20,3 +20,18 @@ export const routingItems = [
     exact: false,
   },
 ];
+
+export const Links = [
+  {
+    name: 'Home',
+    to: '/',
+  },
+  {
+    name: 'About',
+    to: '/about',
+  },
+  {
+    name: 'Contact',
+    to: '/contact',
+  },
+];

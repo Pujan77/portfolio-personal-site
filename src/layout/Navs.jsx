@@ -1,16 +1,9 @@
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Link,
   IconButton,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
@@ -18,21 +11,8 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
-
-const Links = [
-  {
-    name: 'Home',
-    to: '/',
-  },
-  {
-    name: 'About',
-    to: '/about',
-  },
-  {
-    name: 'Contact',
-    to: '/contact',
-  },
-];
+import Footer from './Footer';
+import { Links } from '../content/content';
 
 const NavLink = ({ children, onClickFunction }) => (
   <Link
@@ -128,6 +108,7 @@ export default function Navs() {
       <Box p={4}>
         <Outlet />
       </Box>
+      <Footer />
     </>
   );
 }

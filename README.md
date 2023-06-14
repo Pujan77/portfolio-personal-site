@@ -28,3 +28,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Deploy
 
 Using vercel or any other services
+
+## Like what you see?
+
+Buy me a coffee [here](https://bmc.link/pujan7).

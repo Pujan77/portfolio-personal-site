@@ -3,6 +3,7 @@ import { ChakraProvider, theme } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navs } from './layout';
 import { routingItems } from './content/content';
+import './App.css';
 function App() {
   return (
     <ChakraProvider theme={theme}>

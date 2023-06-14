@@ -1,0 +1,25 @@
+.buy-me-a-coffee-button {
+    display: inline-block;
+    background-color: #FFDD00;
+    color: #000000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Cookie', cursive;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buy-me-a-coffee-button:hover {
+    background-color: #FFEE80;
+  }
+  
+  .coffee-icon {
+    margin-right: 5px;
+  }
+  
+  .button-text {
+    vertical-align: middle;
+  }
+  
