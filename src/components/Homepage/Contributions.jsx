@@ -1,4 +1,4 @@
-import { Box, Container, Stack } from '@chakra-ui/react';
+import { Box, Container, Heading, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import GitHubCalendar from 'react-github-calendar';
 
@@ -13,6 +13,12 @@ const Contributions = () => {
         justify={'center'}
         align={'center'}
       >
+        <Stack align={'center'}>
+          <Heading>
+            <Text>Github Map</Text>
+          </Heading>
+          <Text>Public Contributions</Text>
+        </Stack>
         <GitHubCalendar username="Pujan77" />
       </Container>
     </Box>
