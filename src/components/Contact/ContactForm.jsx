@@ -22,6 +22,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { Field, Form, Formik } from 'formik';
 import emailjs from '@emailjs/browser';
 import { useError, useResponse } from '../../ErrorWrapper';
+import { validationSchema } from '../../utils/validators';
 const contactOptions = [
   {
     label: 'Address',
@@ -70,7 +71,7 @@ const ContactForm = () => {
         }
       );
   };
-
+  const bgColor = useColorModeValue('white', 'gray.700');
   return (
     <Container maxW="7xl" py={10} px={{ base: 5, md: 8 }}>
       <Stack spacing={10}>
@@ -113,80 +114,116 @@ const ContactForm = () => {
             </Fragment>
           ))}
         </Stack>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-          <Form ref={form}>
-            <VStack
-              spacing={8}
-              w="100%"
-              bg={useColorModeValue('white', 'gray.700')}
-              rounded="lg"
-              boxShadow="lg"
-              p={{ base: 5, sm: 10 }}
-            >
-              <VStack spacing={4} w="100%">
-                <Stack
-                  w="100%"
-                  spacing={3}
-                  direction={{ base: 'column', md: 'row' }}
-                >
-                  <FormControl id="fullName">
-                    <FormLabel>Name</FormLabel>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched }) => (
+            <Form ref={form}>
+              <VStack
+                spacing={8}
+                w="100%"
+                bg={bgColor}
+                rounded="lg"
+                boxShadow="lg"
+                p={{ base: 5, sm: 10 }}
+              >
+                <VStack spacing={4} w="100%">
+                  <Stack
+                    w="100%"
+                    spacing={3}
+                    direction={{ base: 'column', md: 'row' }}
+                  >
+                    <FormControl id="fullName">
+                      <FormLabel>Name</FormLabel>
+                      <Field
+                        as={Input}
+                        type="text"
+                        name="fullName"
+                        placeholder="John Doe"
+                        rounded="md"
+                        className={
+                          errors.fullName && touched.fullName ? 'error' : ''
+                        }
+                      />
+                      {errors.fullName && touched.fullName && (
+                        <Text color="red" fontSize="sm" mt={1}>
+                          {errors.fullName}
+                        </Text>
+                      )}
+                    </FormControl>
+                    <FormControl id="email">
+                      <FormLabel>Email</FormLabel>
+                      <Field
+                        as={Input}
+                        type="email"
+                        name="email"
+                        placeholder="john_doe@email.com"
+                        rounded="md"
+                        className={errors.email && touched.email ? 'error' : ''}
+                      />
+                      {errors.email && touched.email && (
+                        <Text color="red" fontSize="sm" mt={1}>
+                          {errors.email}
+                        </Text>
+                      )}
+                    </FormControl>
+                  </Stack>
+                  <FormControl id="subject">
+                    <FormLabel>Subject</FormLabel>
                     <Field
                       as={Input}
                       type="text"
-                      name="fullName"
-                      placeholder="John Doe"
+                      name="subject"
+                      placeholder="Eg. Freelance availability"
                       rounded="md"
+                      className={
+                        errors.subject && touched.subject ? 'error' : ''
+                      }
                     />
+                    {errors.subject && touched.subject && (
+                      <Text color="red" fontSize="sm" mt={1}>
+                        {errors.subject}
+                      </Text>
+                    )}
                   </FormControl>
-                  <FormControl id="email">
-                    <FormLabel>Email</FormLabel>
+                  <FormControl id="message">
+                    <FormLabel>Message</FormLabel>
                     <Field
-                      as={Input}
-                      type="email"
-                      name="email"
-                      placeholder="john_doe@email.com"
+                      as={Textarea}
+                      size="lg"
+                      name="message"
+                      placeholder="Enter your message"
                       rounded="md"
+                      className={
+                        errors.message && touched.message ? 'error' : ''
+                      }
                     />
+                    {errors.message && touched.message && (
+                      <Text color="red" fontSize="sm" mt={1}>
+                        {errors.message}
+                      </Text>
+                    )}
                   </FormControl>
-                </Stack>
-                <FormControl id="subject">
-                  <FormLabel>Subject</FormLabel>
-                  <Field
-                    as={Input}
-                    type="text"
-                    name="subject"
-                    placeholder="Eg. Freelance availability"
+                </VStack>
+                <VStack w="100%">
+                  <Button
+                    type="submit"
+                    bg="green.300"
+                    color="white"
+                    _hover={{
+                      bg: 'green.500',
+                    }}
                     rounded="md"
-                  />
-                </FormControl>
-                <FormControl id="message">
-                  <FormLabel>Message</FormLabel>
-                  <Field
-                    as={Textarea}
-                    size="lg"
-                    name="message"
-                    placeholder="Enter your message"
-                    rounded="md"
-                  />
-                </FormControl>
+                    w={{ base: '100%', md: 'max-content' }}
+                  >
+                    Send Message
+                  </Button>
+                </VStack>
               </VStack>
-              <VStack w="100%">
-                <Button
-                  type="submit"
-                  bg="green.300"
-                  color="white"
-                  _hover={{
-                    bg: 'green.500',
-                  }}
-                  rounded="md"
-                  w={{ base: '100%', md: 'max-content' }}
-                >
-                  Send Message
-                </Button>
-              </VStack>
-            </VStack>
-          </Form>
+            </Form>
+          )}
         </Formik>
       </Stack>
     </Container>
