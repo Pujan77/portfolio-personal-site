@@ -97,3 +97,31 @@ export const milestones = [
       'I built some projects game scripts for GTAV Roleplay servers. Got to learn Lua and other web scripting fundamentals. I also learn web development using HTML, CSS and JS. This was a point of learning other frameworks like NodeJs, ReactJS and Django which later helped me get a job. I am also preparing for AWS Cloud Practitioner Examination.',
   },
 ];
+export const milestonesEducation = [
+  {
+    id: 1,
+    date: 'July 2023',
+    title: 'Joined Masters',
+    description: `Masters in Information Technology in University of Southern Queensland, Toowoomba, QLD, Australia. Specialization in Software Development.`,
+  },
+  {
+    id: 2,
+    date: '2017-2022',
+    title: 'Bachelors in Engineering',
+    description: `Bachelors in Computer Engineering from Advanced College of Engineering and Management, Kathmandu, Nepal. Affiliated to Tribhuvan University. Completed registration from NEC as an Engineer.`,
+  },
+  {
+    id: 3,
+    date: '2015-2017',
+    title: 'Highschool',
+    description:
+      'fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est.',
+  },
+  {
+    id: 4,
+    date: '2005-2015',
+    title: 'Schooling',
+    description:
+      'Studied in V.S. Niketal Higher Secondary School, Minbhawan, Kathmandu.',
+  },
+];
